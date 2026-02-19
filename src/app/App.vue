@@ -65,7 +65,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import AIVolumeEstimate from './components/AIVolumeEstimate.vue'
 import InstantQuotation from './components/InstantQuotation.vue'
 import BookingConfirmation from './components/BookingConfirmation.vue'

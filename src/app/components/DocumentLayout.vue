@@ -44,15 +44,14 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import logo from '../../assets/f27e35eb84d6e7810aa280143872a57f44f6325d.png'
 import seal from '../../assets/d5049f13d8040cb86739a20ff59fc7644e086a4b.png'
 
-interface Props {
-  showSeal?: boolean
-}
-
-withDefaults(defineProps<Props>(), {
-  showSeal: false
+defineProps({
+  showSeal: {
+    type: Boolean,
+    default: false
+  }
 })
 </script>

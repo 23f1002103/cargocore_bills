@@ -222,6 +222,6 @@
   </DocumentLayout>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import DocumentLayout from './DocumentLayout.vue';
 </script>
