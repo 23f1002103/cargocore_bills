@@ -19,25 +19,25 @@
         <div class="grid grid-cols-3 gap-4">
           <div>
             <p class="text-[10px] opacity-80 uppercase">Order ID</p>
-            <p class="text-[15px] font-bold">CC-12345</p>
+            <p class="text-[15px] font-bold">{{ order.id }}</p>
           </div>
           <div>
             <p class="text-[10px] opacity-80 uppercase">Delivery Date</p>
-            <p class="text-[13px] font-semibold">December 20, 2024</p>
+            <p class="text-[13px] font-semibold">{{ order.deliveryDate }}</p>
           </div>
           <div>
             <p class="text-[10px] opacity-80 uppercase">Delivery Time</p>
-            <p class="text-[13px] font-semibold">01:45 PM</p>
+            <p class="text-[13px] font-semibold">{{ order.deliveryTime }}</p>
           </div>
         </div>
         <div class="mt-3 pt-3 border-t border-white/20 grid grid-cols-2 gap-4">
           <div>
             <p class="text-[10px] opacity-80 uppercase mb-1">Customer</p>
-            <p class="text-[13px] font-semibold">Sarah Khan | +91 98765 43210</p>
+            <p class="text-[13px] font-semibold">{{ customer.name }} | {{ customer.phone }}</p>
           </div>
           <div>
             <p class="text-[10px] opacity-80 uppercase mb-1">Driver</p>
-            <p class="text-[13px] font-semibold">Prakash Reddy (DRV-8765)</p>
+            <p class="text-[13px] font-semibold">{{ driver.name }} ({{ driver.employeeId }})</p>
           </div>
         </div>
       </div>
@@ -45,11 +45,11 @@
       <!-- Delivery Address -->
       <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
         <h3 class="text-[11px] font-bold text-blue-900 mb-2">📍 DELIVERY ADDRESS</h3>
-        <p class="text-[13px] font-semibold text-gray-900">456 Maple Avenue, Indiranagar</p>
-        <p class="text-[11px] text-gray-700">Bangalore, Karnataka - 560038</p>
+        <p class="text-[13px] font-semibold text-gray-900">{{ deliveryAddress.address }}</p>
+        <p class="text-[11px] text-gray-700">{{ deliveryAddress.city }}, {{ deliveryAddress.state }} - {{ deliveryAddress.pincode }}</p>
         <div class="mt-2 pt-2 border-t border-blue-200 grid grid-cols-2 gap-2 text-[10px]">
-          <div>Floor: <span class="font-semibold">2nd Floor</span></div>
-          <div>Lift Available: <span class="font-semibold">Yes</span></div>
+          <div>Floor: <span class="font-semibold">{{ deliveryAddress.floor }}</span></div>
+          <div>Lift Available: <span class="font-semibold">{{ deliveryAddress.liftAvailable }}</span></div>
         </div>
       </div>
 
@@ -87,15 +87,15 @@
         <div class="grid grid-cols-2 gap-4 text-[11px]">
           <div>
             <p class="text-gray-600">GPS Coordinates:</p>
-            <p class="font-semibold text-gray-900">12.9716° N, 77.5946° E</p>
+            <p class="font-semibold text-gray-900">{{ gps.coordinates }}</p>
           </div>
           <div>
             <p class="text-gray-600">Location Accuracy:</p>
-            <p class="font-semibold text-green-600">± 5 meters (High)</p>
+            <p class="font-semibold text-green-600">{{ gps.accuracy }}</p>
           </div>
           <div>
             <p class="text-gray-600">Timestamp:</p>
-            <p class="font-semibold text-gray-900">Dec 20, 2024 01:45:23 PM</p>
+            <p class="font-semibold text-gray-900">{{ gps.timestamp }}</p>
           </div>
           <div>
             <p class="text-gray-600">Location Verified:</p>
@@ -117,33 +117,15 @@
             </tr>
           </thead>
           <tbody class="text-gray-800">
-            <tr>
-              <td class="p-2 border border-gray-300">Large Cardboard Boxes (Sealed)</td>
-              <td class="text-center p-2 border border-gray-300">15</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">Good</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">✓</td>
-            </tr>
-            <tr class="bg-gray-50">
-              <td class="p-2 border border-gray-300">Medium Cardboard Boxes (Sealed)</td>
-              <td class="text-center p-2 border border-gray-300">13</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">Good</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">✓</td>
-            </tr>
-            <tr>
-              <td class="p-2 border border-gray-300">Furniture Items (Protected)</td>
-              <td class="text-center p-2 border border-gray-300">8</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">Good</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">✓</td>
-            </tr>
-            <tr class="bg-gray-50">
-              <td class="p-2 border border-gray-300">Appliances (Bubble Wrapped)</td>
-              <td class="text-center p-2 border border-gray-300">4</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">Good</td>
+            <tr v-for="(item, index) in items" :key="index" :class="index % 2 !== 0 ? 'bg-gray-50' : ''">
+              <td class="p-2 border border-gray-300">{{ item.description }}</td>
+              <td class="text-center p-2 border border-gray-300">{{ item.qty }}</td>
+              <td class="text-center p-2 border border-gray-300 text-green-600">{{ item.condition }}</td>
               <td class="text-center p-2 border border-gray-300 text-green-600">✓</td>
             </tr>
             <tr class="bg-green-100 font-bold">
               <td class="p-2 border border-gray-300">TOTAL ITEMS</td>
-              <td class="text-center p-2 border border-gray-300">40</td>
+              <td class="text-center p-2 border border-gray-300">{{ items.reduce((s, i) => s + i.qty, 0) }}</td>
               <td class="text-center p-2 border border-gray-300 text-green-700">All Good</td>
               <td class="text-center p-2 border border-gray-300 text-green-700">✓</td>
             </tr>
@@ -214,14 +196,36 @@
           <div>
             <p class="text-[10px] text-gray-600 mb-2">Customer Signature:</p>
             <div class="border-2 border-gray-400 rounded h-[60px] bg-white mb-2"></div>
-            <p class="text-[9px] text-gray-500">Name: Sarah Khan</p>
+            <p class="text-[9px] text-gray-500">Name: {{ customer.name }}</p>
           </div>
           <div>
             <p class="text-[10px] text-gray-600 mb-2">Date & Time:</p>
             <div class="border-b-2 border-gray-400 h-[30px] mb-2 flex items-end">
-              <span class="text-[11px] font-semibold text-gray-900">December 20, 2024 - 01:45 PM</span>
+              <span class="text-[11px] font-semibold text-gray-900">{{ order.deliveryDate }} - {{ order.deliveryTime }}</span>
             </div>
-            <p class="text-[9px] text-gray-500 mt-4">Driver Signature: _______________</p>
+            <div class="flex items-center gap-3 mt-2">
+              <p class="text-[9px] text-gray-500">Driver:</p>
+              <div class="w-[80px] h-[80px]">
+                <svg viewBox="0 0 150 150" class="w-full h-full">
+                  <circle cx="75" cy="75" r="72" fill="none" stroke="#3D5A99" stroke-width="3"/>
+                  <circle cx="75" cy="75" r="60" fill="none" stroke="#3D5A99" stroke-width="1"/>
+                  <text x="75" y="20" font-size="12" fill="#3D5A99" text-anchor="middle">★</text>
+                  <text x="75" y="135" font-size="12" fill="#3D5A99" text-anchor="middle">★</text>
+                  <text x="20" y="78" font-size="12" fill="#3D5A99" text-anchor="middle">★</text>
+                  <text x="130" y="78" font-size="12" fill="#3D5A99" text-anchor="middle">★</text>
+                  <path id="podSealTopArc" d="M 30,75 A 45,45 0 0,1 120,75" fill="none"/>
+                  <text font-size="11" fill="#3D5A99" font-weight="bold">
+                    <textPath href="#podSealTopArc" text-anchor="middle" startOffset="50%">CARGOCORE</textPath>
+                  </text>
+                  <path id="podSealBottomArc" d="M 120,75 A 45,45 0 0,1 30,75" fill="none"/>
+                  <text font-size="9" fill="#3D5A99" font-weight="600">
+                    <textPath href="#podSealBottomArc" text-anchor="middle" startOffset="50%">LOGISTICS PVT. LTD.</textPath>
+                  </text>
+                  <image :href="logoSrc" x="55" y="55" width="40" height="40" opacity="0.7"/>
+                  <text x="75" y="105" font-size="10" fill="#DC2626" font-weight="bold" text-anchor="middle">OFFICIAL SEAL</text>
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -237,4 +241,48 @@
 
 <script setup>
 import DocumentLayout from './DocumentLayout.vue';
+import logoSrc from '../../assets/f27e35eb84d6e7810aa280143872a57f44f6325d.png'
+
+const props = defineProps({
+  order: {
+    type: Object,
+    default: () => ({ id: 'CC-12345', deliveryDate: 'December 20, 2024', deliveryTime: '01:45 PM' })
+  },
+  customer: {
+    type: Object,
+    default: () => ({ name: 'Sarah Khan', phone: '+91 98765 43210' })
+  },
+  driver: {
+    type: Object,
+    default: () => ({ name: 'Prakash Reddy', employeeId: 'DRV-8765' })
+  },
+  deliveryAddress: {
+    type: Object,
+    default: () => ({
+      address: '456 Maple Avenue, Indiranagar',
+      city: 'Bangalore',
+      state: 'Karnataka',
+      pincode: '560038',
+      floor: '2nd Floor',
+      liftAvailable: 'Yes'
+    })
+  },
+  gps: {
+    type: Object,
+    default: () => ({
+      coordinates: '12.9716° N, 77.5946° E',
+      accuracy: '± 5 meters (High)',
+      timestamp: 'Dec 20, 2024 01:45:23 PM'
+    })
+  },
+  items: {
+    type: Array,
+    default: () => [
+      { description: 'Large Cardboard Boxes (Sealed)', qty: 15, condition: 'Good' },
+      { description: 'Medium Cardboard Boxes (Sealed)', qty: 13, condition: 'Good' },
+      { description: 'Furniture Items (Protected)', qty: 8, condition: 'Good' },
+      { description: 'Appliances (Bubble Wrapped)', qty: 4, condition: 'Good' }
+    ]
+  }
+})
 </script>

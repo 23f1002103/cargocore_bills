@@ -21,19 +21,19 @@
           <div class="space-y-2 text-[11px]">
             <div class="grid grid-cols-2">
               <span class="text-gray-600">Invoice No:</span>
-              <span class="font-semibold text-gray-900">INV-2024-12-0567</span>
+              <span class="font-semibold text-gray-900">{{ invoice.number }}</span>
             </div>
             <div class="grid grid-cols-2">
               <span class="text-gray-600">Invoice Date:</span>
-              <span class="font-semibold text-gray-900">December 20, 2024</span>
+              <span class="font-semibold text-gray-900">{{ invoice.date }}</span>
             </div>
             <div class="grid grid-cols-2">
               <span class="text-gray-600">Order ID:</span>
-              <span class="font-semibold text-gray-900">CC-12345</span>
+              <span class="font-semibold text-gray-900">{{ invoice.orderId }}</span>
             </div>
             <div class="grid grid-cols-2">
               <span class="text-gray-600">Payment Status:</span>
-              <span class="font-semibold text-green-600">PAID</span>
+              <span class="font-semibold text-green-600">{{ invoice.paymentStatus }}</span>
             </div>
           </div>
         </div>
@@ -54,11 +54,11 @@
       <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
         <h3 class="text-[11px] font-bold text-gray-800 mb-2">BILL TO</h3>
         <div class="text-[11px]">
-          <p class="font-semibold text-gray-900">Sarah Khan</p>
-          <p class="text-gray-700">456 Maple Avenue, Indiranagar</p>
-          <p class="text-gray-700">Bangalore, Karnataka - 560038</p>
-          <p class="text-gray-700 mt-1">Phone: +91 98765 43210</p>
-          <p class="text-gray-700">Email: sarah.khan@email.com</p>
+          <p class="font-semibold text-gray-900">{{ customer.name }}</p>
+          <p class="text-gray-700">{{ customer.address }}</p>
+          <p class="text-gray-700">{{ customer.city }}, {{ customer.state }} - {{ customer.pincode }}</p>
+          <p class="text-gray-700 mt-1">Phone: {{ customer.phone }}</p>
+          <p class="text-gray-700">Email: {{ customer.email }}</p>
         </div>
       </div>
 
@@ -74,50 +74,18 @@
             </tr>
           </thead>
           <tbody class="text-gray-800">
-            <tr>
+            <tr v-for="(service, index) in services" :key="index" :class="index % 2 !== 0 ? 'bg-gray-50' : ''">
               <td class="p-2 border border-gray-300">
-                <p class="font-semibold">Transportation Service</p>
-                <p class="text-[9px] text-gray-600">14 ft covered truck, 18.5 km distance</p>
-                <p class="text-[9px] text-gray-600">From: 123 Oak Street, Whitefield to 456 Maple Avenue, Indiranagar</p>
+                <p class="font-semibold">{{ service.name }}</p>
+                <p v-if="service.description" class="text-[9px] text-gray-600">{{ service.description }}</p>
+                <p v-if="service.detail" class="text-[9px] text-gray-600">{{ service.detail }}</p>
               </td>
-              <td class="text-center p-2 border border-gray-300">996791</td>
-              <td class="text-right p-2 border border-gray-300">1,800.00</td>
-            </tr>
-            <tr class="bg-gray-50">
-              <td class="p-2 border border-gray-300">
-                <p class="font-semibold">Labor Charges</p>
-                <p class="text-[9px] text-gray-600">4 skilled workers for loading & unloading</p>
-              </td>
-              <td class="text-center p-2 border border-gray-300">998511</td>
-              <td class="text-right p-2 border border-gray-300">1,600.00</td>
-            </tr>
-            <tr>
-              <td class="p-2 border border-gray-300">
-                <p class="font-semibold">Packing Materials</p>
-                <p class="text-[9px] text-gray-600">28 boxes, bubble wrap, tape, foam sheets, etc.</p>
-              </td>
-              <td class="text-center p-2 border border-gray-300">998511</td>
-              <td class="text-right p-2 border border-gray-300">700.00</td>
-            </tr>
-            <tr class="bg-gray-50">
-              <td class="p-2 border border-gray-300">
-                <p class="font-semibold">Professional Packing Service</p>
-                <p class="text-[9px] text-gray-600">Complete packing by trained team</p>
-              </td>
-              <td class="text-center p-2 border border-gray-300">998511</td>
-              <td class="text-right p-2 border border-gray-300">400.00</td>
-            </tr>
-            <tr>
-              <td class="p-2 border border-gray-300">
-                <p class="font-semibold">Transit Insurance</p>
-                <p class="text-[9px] text-gray-600">Coverage up to ₹50,000</p>
-              </td>
-              <td class="text-center p-2 border border-gray-300">997211</td>
-              <td class="text-right p-2 border border-gray-300">0.00</td>
+              <td class="text-center p-2 border border-gray-300">{{ service.sac }}</td>
+              <td class="text-right p-2 border border-gray-300">{{ service.amount }}</td>
             </tr>
             <tr class="bg-blue-50 font-semibold">
               <td class="p-2 border border-gray-300" colspan="2">SUBTOTAL (Before Tax)</td>
-              <td class="text-right p-2 border border-gray-300">4,500.00</td>
+              <td class="text-right p-2 border border-gray-300">{{ totals.subtotal }}</td>
             </tr>
           </tbody>
         </table>
@@ -162,18 +130,18 @@
         <div class="space-y-3 text-[13px]">
           <div class="flex justify-between pb-2 border-b border-white/20">
             <span>Subtotal</span>
-            <span class="font-semibold">₹4,500.00</span>
+            <span class="font-semibold">₹{{ totals.subtotal }}</span>
           </div>
           <div class="flex justify-between pb-2 border-b border-white/20">
             <span>GST (18%)</span>
-            <span class="font-semibold">₹0.00</span>
+            <span class="font-semibold">₹{{ totals.gst }}</span>
           </div>
           <div class="flex justify-between items-center pt-2">
             <span class="text-[15px] font-bold">GRAND TOTAL</span>
-            <span class="text-[24px] font-bold">₹4,500.00</span>
+            <span class="text-[24px] font-bold">₹{{ totals.grandTotal }}</span>
           </div>
           <p class="text-[10px] opacity-90 text-center pt-2 border-t border-white/20">
-            Amount in words: <span class="font-semibold">Four Thousand Five Hundred Rupees Only</span>
+            Amount in words: <span class="font-semibold">{{ totals.amountInWords }}</span>
           </p>
         </div>
       </div>
@@ -193,8 +161,8 @@
           <tbody class="text-gray-800">
             <tr>
               <td class="p-2 border border-gray-300">Total Service Amount</td>
-              <td class="text-right p-2 border border-gray-300">4,500.00</td>
-              <td class="text-right p-2 border border-gray-300">4,500.00</td>
+              <td class="text-right p-2 border border-gray-300">{{ totals.subtotal }}</td>
+              <td class="text-right p-2 border border-gray-300">{{ totals.subtotal }}</td>
               <td class="text-right p-2 border border-gray-300 text-green-600 font-semibold">0.00</td>
             </tr>
           </tbody>
@@ -215,21 +183,15 @@
             </tr>
           </thead>
           <tbody class="text-gray-800">
-            <tr class="bg-green-50">
-              <td class="p-2 border border-gray-300">Advance Payment (30%)</td>
-              <td class="text-center p-2 border border-gray-300">Dec 16, 2024</td>
-              <td class="text-center p-2 border border-gray-300">UPI</td>
-              <td class="text-right p-2 border border-gray-300">1,350.00</td>
-            </tr>
-            <tr class="bg-green-50">
-              <td class="p-2 border border-gray-300">Balance Payment (70%)</td>
-              <td class="text-center p-2 border border-gray-300">Dec 20, 2024</td>
-              <td class="text-center p-2 border border-gray-300">Cash</td>
-              <td class="text-right p-2 border border-gray-300">3,150.00</td>
+            <tr v-for="(payment, index) in payments" :key="index" class="bg-green-50">
+              <td class="p-2 border border-gray-300">{{ payment.stage }}</td>
+              <td class="text-center p-2 border border-gray-300">{{ payment.date }}</td>
+              <td class="text-center p-2 border border-gray-300">{{ payment.mode }}</td>
+              <td class="text-right p-2 border border-gray-300">{{ payment.amount }}</td>
             </tr>
             <tr class="bg-green-200 font-bold">
               <td class="p-2 border border-gray-300" colspan="3">TOTAL PAID</td>
-              <td class="text-right p-2 border border-gray-300">4,500.00</td>
+              <td class="text-right p-2 border border-gray-300">{{ totals.grandTotal }}</td>
             </tr>
           </tbody>
         </table>
@@ -272,12 +234,43 @@
       </div>
 
       <!-- Authorization -->
-      <div class="text-center pt-4">
-        <p class="text-[11px] font-semibold text-gray-800 mb-1">For CargoCore Logistics Pvt. Ltd.</p>
-        <div class="h-[50px] flex items-center justify-center">
-          <p class="text-[10px] text-gray-600 italic">(Digitally Authorized)</p>
+      <div class="grid grid-cols-2 gap-8 pt-4 items-center">
+        <!-- Signatory -->
+        <div>
+          <p class="text-[11px] font-semibold text-gray-800 mb-1">For CargoCore Logistics Pvt. Ltd.</p>
+          <div class="h-[50px] flex items-start">
+            <p class="text-[10px] text-gray-600 italic">(Digitally Authorized)</p>
+          </div>
+          <p class="text-[10px] text-gray-700 font-semibold">Authorized Signatory</p>
         </div>
-        <p class="text-[10px] text-gray-700 font-semibold">Authorized Signatory</p>
+
+        <!-- Company Seal -->
+        <div class="flex justify-center">
+          <div class="w-[140px] h-[140px]">
+            <svg viewBox="0 0 150 150" class="w-full h-full">
+              <circle cx="75" cy="75" r="72" fill="none" stroke="#3D5A99" stroke-width="3"/>
+              <circle cx="75" cy="75" r="60" fill="none" stroke="#3D5A99" stroke-width="1"/>
+              <text x="75" y="20" font-size="12" fill="#3D5A99" text-anchor="middle">★</text>
+              <text x="75" y="135" font-size="12" fill="#3D5A99" text-anchor="middle">★</text>
+              <text x="20" y="78" font-size="12" fill="#3D5A99" text-anchor="middle">★</text>
+              <text x="130" y="78" font-size="12" fill="#3D5A99" text-anchor="middle">★</text>
+              <path id="invoiceSealTopArc" d="M 30,75 A 45,45 0 0,1 120,75" fill="none"/>
+              <text font-size="11" fill="#3D5A99" font-weight="bold">
+                <textPath href="#invoiceSealTopArc" text-anchor="middle" startOffset="50%">CARGOCORE</textPath>
+              </text>
+              <path id="invoiceSealBottomArc" d="M 120,75 A 45,45 0 0,1 30,75" fill="none"/>
+              <text font-size="9" fill="#3D5A99" font-weight="600">
+                <textPath href="#invoiceSealBottomArc" text-anchor="middle" startOffset="50%">LOGISTICS PVT. LTD.</textPath>
+              </text>
+              <image
+                :href="logoSrc"
+                x="55" y="55" width="40" height="40"
+                opacity="0.7"
+              />
+              <text x="75" y="105" font-size="10" fill="#DC2626" font-weight="bold" text-anchor="middle">OFFICIAL SEAL</text>
+            </svg>
+          </div>
+        </div>
       </div>
 
       <!-- Thank You Note -->
@@ -291,4 +284,50 @@
 
 <script setup>
 import DocumentLayout from './DocumentLayout.vue';
+import logoSrc from '../../assets/f27e35eb84d6e7810aa280143872a57f44f6325d.png'
+
+const props = defineProps({
+  invoice: {
+    type: Object,
+    default: () => ({ number: 'INV-2024-12-0567', date: 'December 20, 2024', orderId: 'CC-12345', paymentStatus: 'PAID' })
+  },
+  customer: {
+    type: Object,
+    default: () => ({
+      name: 'Sarah Khan',
+      address: '456 Maple Avenue, Indiranagar',
+      city: 'Bangalore',
+      state: 'Karnataka',
+      pincode: '560038',
+      phone: '+91 98765 43210',
+      email: 'sarah.khan@email.com'
+    })
+  },
+  services: {
+    type: Array,
+    default: () => [
+      { name: 'Transportation Service', description: '14 ft covered truck, 18.5 km distance', detail: 'From: 123 Oak Street, Whitefield to 456 Maple Avenue, Indiranagar', sac: '996791', amount: '1,800.00' },
+      { name: 'Labor Charges', description: '4 skilled workers for loading & unloading', detail: '', sac: '998511', amount: '1,600.00' },
+      { name: 'Packing Materials', description: '28 boxes, bubble wrap, tape, foam sheets, etc.', detail: '', sac: '998511', amount: '700.00' },
+      { name: 'Professional Packing Service', description: 'Complete packing by trained team', detail: '', sac: '998511', amount: '400.00' },
+      { name: 'Transit Insurance', description: 'Coverage up to ₹50,000', detail: '', sac: '997211', amount: '0.00' }
+    ]
+  },
+  totals: {
+    type: Object,
+    default: () => ({
+      subtotal: '4,500.00',
+      gst: '0.00',
+      grandTotal: '4,500.00',
+      amountInWords: 'Four Thousand Five Hundred Rupees Only'
+    })
+  },
+  payments: {
+    type: Array,
+    default: () => [
+      { stage: 'Advance Payment (30%)', date: 'Dec 16, 2024', mode: 'UPI', amount: '1,350.00' },
+      { stage: 'Balance Payment (70%)', date: 'Dec 20, 2024', mode: 'Cash', amount: '3,150.00' }
+    ]
+  }
+})
 </script>

@@ -11,19 +11,19 @@
       <div class="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-lg">
         <div>
           <p class="text-[10px] text-gray-600 uppercase">Order ID</p>
-          <p class="text-[13px] font-semibold text-gray-900">CC-12345</p>
+          <p class="text-[13px] font-semibold text-gray-900">{{ order.id }}</p>
         </div>
         <div>
           <p class="text-[10px] text-gray-600 uppercase">Customer</p>
-          <p class="text-[13px] font-semibold text-gray-900">Sarah Khan</p>
+          <p class="text-[13px] font-semibold text-gray-900">{{ order.customer }}</p>
         </div>
         <div>
           <p class="text-[10px] text-gray-600 uppercase">Estimate Date</p>
-          <p class="text-[13px] font-semibold text-gray-900">December 15, 2024</p>
+          <p class="text-[13px] font-semibold text-gray-900">{{ order.estimateDate }}</p>
         </div>
         <div>
           <p class="text-[10px] text-gray-600 uppercase">Analysis Method</p>
-          <p class="text-[13px] font-semibold text-gray-900">AI Photo Analysis</p>
+          <p class="text-[13px] font-semibold text-gray-900">{{ order.analysisMethod }}</p>
         </div>
       </div>
 
@@ -33,8 +33,8 @@
           <div class="w-full h-[180px] bg-white rounded-lg flex items-center justify-center border border-gray-300">
             <div>
               <div class="text-blue-600 text-[40px] mb-2">📷</div>
-              <p class="text-[12px] text-gray-600">Photos Uploaded: 8 images</p>
-              <p class="text-[10px] text-gray-500">Living room, Bedroom, Kitchen, Storage</p>
+              <p class="text-[12px] text-gray-600">Photos Uploaded: {{ photos.count }} images</p>
+              <p class="text-[10px] text-gray-500">{{ photos.areas }}</p>
             </div>
           </div>
         </div>
@@ -46,23 +46,23 @@
         <div class="grid grid-cols-3 gap-4">
           <div class="bg-white/10 backdrop-blur-sm p-3 rounded">
             <p class="text-[10px] opacity-90">Estimated Boxes</p>
-            <p class="text-[24px] font-bold">28</p>
+            <p class="text-[24px] font-bold">{{ analysis.estimatedBoxes }}</p>
           </div>
           <div class="bg-white/10 backdrop-blur-sm p-3 rounded">
             <p class="text-[10px] opacity-90">Labor Required</p>
-            <p class="text-[24px] font-bold">4</p>
+            <p class="text-[24px] font-bold">{{ analysis.laborRequired }}</p>
           </div>
           <div class="bg-white/10 backdrop-blur-sm p-3 rounded">
             <p class="text-[10px] opacity-90">Truck Size</p>
-            <p class="text-[18px] font-bold mt-1">14 ft</p>
+            <p class="text-[18px] font-bold mt-1">{{ analysis.truckSize }}</p>
           </div>
         </div>
         <div class="mt-4 flex items-center justify-center gap-2 bg-white/10 p-2 rounded">
           <span class="text-[11px]">Confidence Level:</span>
           <div class="flex-1 bg-white/20 h-[12px] rounded-full overflow-hidden max-w-[200px]">
-            <div class="bg-green-400 h-full" style="width: 92%"></div>
+            <div class="bg-green-400 h-full" :style="{ width: analysis.confidenceLevel + '%' }"></div>
           </div>
-          <span class="text-[13px] font-bold">92%</span>
+          <span class="text-[13px] font-bold">{{ analysis.confidenceLevel }}%</span>
         </div>
       </div>
 
@@ -79,35 +79,17 @@
             </tr>
           </thead>
           <tbody class="text-gray-800">
-            <tr>
-              <td class="p-2 border border-gray-300">Living Room</td>
-              <td class="text-center p-2 border border-gray-300">45</td>
-              <td class="text-center p-2 border border-gray-300">8</td>
-              <td class="text-center p-2 border border-gray-300">120</td>
-            </tr>
-            <tr class="bg-gray-50">
-              <td class="p-2 border border-gray-300">Master Bedroom</td>
-              <td class="text-center p-2 border border-gray-300">38</td>
-              <td class="text-center p-2 border border-gray-300">10</td>
-              <td class="text-center p-2 border border-gray-300">150</td>
-            </tr>
-            <tr>
-              <td class="p-2 border border-gray-300">Kitchen</td>
-              <td class="text-center p-2 border border-gray-300">52</td>
-              <td class="text-center p-2 border border-gray-300">6</td>
-              <td class="text-center p-2 border border-gray-300">80</td>
-            </tr>
-            <tr class="bg-gray-50">
-              <td class="p-2 border border-gray-300">Storage/Others</td>
-              <td class="text-center p-2 border border-gray-300">21</td>
-              <td class="text-center p-2 border border-gray-300">4</td>
-              <td class="text-center p-2 border border-gray-300">60</td>
+            <tr v-for="(row, index) in rooms" :key="index" :class="index % 2 !== 0 ? 'bg-gray-50' : ''">
+              <td class="p-2 border border-gray-300">{{ row.room }}</td>
+              <td class="text-center p-2 border border-gray-300">{{ row.itemsDetected }}</td>
+              <td class="text-center p-2 border border-gray-300">{{ row.boxesNeeded }}</td>
+              <td class="text-center p-2 border border-gray-300">{{ row.volume }}</td>
             </tr>
             <tr class="bg-blue-100 font-bold">
               <td class="p-2 border border-gray-300">TOTAL</td>
-              <td class="text-center p-2 border border-gray-300">156</td>
-              <td class="text-center p-2 border border-gray-300">28</td>
-              <td class="text-center p-2 border border-gray-300">410</td>
+              <td class="text-center p-2 border border-gray-300">{{ rooms.reduce((s, r) => s + r.itemsDetected, 0) }}</td>
+              <td class="text-center p-2 border border-gray-300">{{ rooms.reduce((s, r) => s + r.boxesNeeded, 0) }}</td>
+              <td class="text-center p-2 border border-gray-300">{{ rooms.reduce((s, r) => s + r.volume, 0) }}</td>
             </tr>
           </tbody>
         </table>
@@ -124,4 +106,38 @@
 
 <script setup>
 import DocumentLayout from './DocumentLayout.vue';
+
+const props = defineProps({
+  order: {
+    type: Object,
+    default: () => ({
+      id: 'CC-12345',
+      estimateDate: 'December 15, 2024',
+      customer: 'Sarah Khan',
+      analysisMethod: 'AI Photo Analysis'
+    })
+  },
+  photos: {
+    type: Object,
+    default: () => ({ count: 8, areas: 'Living room, Bedroom, Kitchen, Storage' })
+  },
+  analysis: {
+    type: Object,
+    default: () => ({
+      estimatedBoxes: 28,
+      laborRequired: 4,
+      truckSize: '14 ft',
+      confidenceLevel: 92
+    })
+  },
+  rooms: {
+    type: Array,
+    default: () => [
+      { room: 'Living Room', itemsDetected: 45, boxesNeeded: 8, volume: 120 },
+      { room: 'Master Bedroom', itemsDetected: 38, boxesNeeded: 10, volume: 150 },
+      { room: 'Kitchen', itemsDetected: 52, boxesNeeded: 6, volume: 80 },
+      { room: 'Storage/Others', itemsDetected: 21, boxesNeeded: 4, volume: 60 }
+    ]
+  }
+})
 </script>

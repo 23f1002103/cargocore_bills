@@ -12,15 +12,15 @@
         <div class="grid grid-cols-3 gap-4">
           <div>
             <p class="text-[10px] opacity-80 uppercase">Trip ID</p>
-            <p class="text-[15px] font-bold">TRP-CC-12345</p>
+            <p class="text-[15px] font-bold">{{ trip.id }}</p>
           </div>
           <div>
             <p class="text-[10px] opacity-80 uppercase">Order ID</p>
-            <p class="text-[15px] font-bold">CC-12345</p>
+            <p class="text-[15px] font-bold">{{ order.id }}</p>
           </div>
           <div>
             <p class="text-[10px] opacity-80 uppercase">Trip Date</p>
-            <p class="text-[13px] font-semibold">December 20, 2024</p>
+            <p class="text-[13px] font-semibold">{{ trip.date }}</p>
           </div>
         </div>
       </div>
@@ -32,19 +32,19 @@
           <div class="space-y-2 text-[11px]">
             <div class="grid grid-cols-2">
               <span class="text-gray-600">Name:</span>
-              <span class="font-semibold text-gray-900">Prakash Reddy</span>
+              <span class="font-semibold text-gray-900">{{ driver.name }}</span>
             </div>
             <div class="grid grid-cols-2">
               <span class="text-gray-600">Employee ID:</span>
-              <span class="font-semibold text-gray-900">DRV-8765</span>
+              <span class="font-semibold text-gray-900">{{ driver.employeeId }}</span>
             </div>
             <div class="grid grid-cols-2">
               <span class="text-gray-600">License No:</span>
-              <span class="font-semibold text-gray-900">KA07-20210012345</span>
+              <span class="font-semibold text-gray-900">{{ driver.licenseNo }}</span>
             </div>
             <div class="grid grid-cols-2">
               <span class="text-gray-600">Contact:</span>
-              <span class="font-semibold text-gray-900">+91 98765 55555</span>
+              <span class="font-semibold text-gray-900">{{ driver.phone }}</span>
             </div>
           </div>
         </div>
@@ -53,19 +53,19 @@
           <div class="space-y-2 text-[11px]">
             <div class="grid grid-cols-2">
               <span class="text-gray-600">Vehicle No:</span>
-              <span class="font-semibold text-gray-900">KA 01 MN 5678</span>
+              <span class="font-semibold text-gray-900">{{ vehicle.number }}</span>
             </div>
             <div class="grid grid-cols-2">
               <span class="text-gray-600">Type:</span>
-              <span class="font-semibold text-gray-900">14 ft Covered Truck</span>
+              <span class="font-semibold text-gray-900">{{ vehicle.type }}</span>
             </div>
             <div class="grid grid-cols-2">
               <span class="text-gray-600">Capacity:</span>
-              <span class="font-semibold text-gray-900">3.5 Tons</span>
+              <span class="font-semibold text-gray-900">{{ vehicle.capacity }}</span>
             </div>
             <div class="grid grid-cols-2">
               <span class="text-gray-600">Fuel Start:</span>
-              <span class="font-semibold text-gray-900">85% (68 Liters)</span>
+              <span class="font-semibold text-gray-900">{{ vehicle.fuelStart }}</span>
             </div>
           </div>
         </div>
@@ -77,9 +77,9 @@
         <div class="w-full h-[180px] bg-gradient-to-br from-blue-100 to-green-100 rounded border-2 border-dashed border-gray-400 flex items-center justify-center">
           <div class="text-center">
             <div class="text-[40px] mb-2">🗺️</div>
-            <p class="text-[12px] text-gray-700 font-semibold">GPS Route: Whitefield → Indiranagar</p>
-            <p class="text-[10px] text-gray-600 mt-1">Distance: 18.5 km | Est. Time: 45 minutes</p>
-            <p class="text-[10px] text-gray-600">Via: Outer Ring Road → MG Road → Indiranagar Main Road</p>
+            <p class="text-[12px] text-gray-700 font-semibold">GPS Route: {{ route.from }} → {{ route.to }}</p>
+            <p class="text-[10px] text-gray-600 mt-1">Distance: {{ route.distance }} | Est. Time: {{ route.estTime }}</p>
+            <p class="text-[10px] text-gray-600">Via: {{ route.via }}</p>
           </div>
         </div>
       </div>
@@ -96,25 +96,25 @@
               <div class="flex justify-between items-start mb-2">
                 <div>
                   <p class="text-[12px] font-bold text-blue-900">PICKUP LOCATION</p>
-                  <p class="text-[11px] text-gray-700">123 Oak Street, Whitefield, Bangalore - 560066</p>
+                  <p class="text-[11px] text-gray-700">{{ pickup.address }}</p>
                 </div>
                 <div class="text-right">
                   <p class="text-[10px] text-gray-600">Scheduled Time</p>
-                  <p class="text-[13px] font-bold text-blue-900">09:00 AM</p>
+                  <p class="text-[13px] font-bold text-blue-900">{{ pickup.scheduledTime }}</p>
                 </div>
               </div>
               <div class="grid grid-cols-3 gap-2 text-[10px] bg-white p-2 rounded">
                 <div>
                   <p class="text-gray-600">Contact Person</p>
-                  <p class="font-semibold text-gray-900">Sarah Khan</p>
+                  <p class="font-semibold text-gray-900">{{ pickup.contact }}</p>
                 </div>
                 <div>
                   <p class="text-gray-600">Phone</p>
-                  <p class="font-semibold text-gray-900">+91 98765 43210</p>
+                  <p class="font-semibold text-gray-900">{{ pickup.phone }}</p>
                 </div>
                 <div>
                   <p class="text-gray-600">Est. Loading Time</p>
-                  <p class="font-semibold text-gray-900">90 minutes</p>
+                  <p class="font-semibold text-gray-900">{{ pickup.loadingTime }}</p>
                 </div>
               </div>
               <div class="mt-2 flex items-center gap-2">
@@ -135,25 +135,25 @@
               <div class="flex justify-between items-start mb-2">
                 <div>
                   <p class="text-[12px] font-bold text-green-900">DELIVERY LOCATION</p>
-                  <p class="text-[11px] text-gray-700">456 Maple Avenue, Indiranagar, Bangalore - 560038</p>
+                  <p class="text-[11px] text-gray-700">{{ delivery.address }}</p>
                 </div>
                 <div class="text-right">
                   <p class="text-[10px] text-gray-600">Scheduled Time</p>
-                  <p class="text-[13px] font-bold text-green-900">12:00 PM</p>
+                  <p class="text-[13px] font-bold text-green-900">{{ delivery.scheduledTime }}</p>
                 </div>
               </div>
               <div class="grid grid-cols-3 gap-2 text-[10px] bg-white p-2 rounded">
                 <div>
                   <p class="text-gray-600">Contact Person</p>
-                  <p class="font-semibold text-gray-900">Sarah Khan</p>
+                  <p class="font-semibold text-gray-900">{{ delivery.contact }}</p>
                 </div>
                 <div>
                   <p class="text-gray-600">Phone</p>
-                  <p class="font-semibold text-gray-900">+91 98765 43210</p>
+                  <p class="font-semibold text-gray-900">{{ delivery.phone }}</p>
                 </div>
                 <div>
                   <p class="text-gray-600">Est. Unloading Time</p>
-                  <p class="font-semibold text-gray-900">75 minutes</p>
+                  <p class="font-semibold text-gray-900">{{ delivery.unloadingTime }}</p>
                 </div>
               </div>
               <div class="mt-2 flex items-center gap-2">
@@ -196,19 +196,19 @@
       <div class="grid grid-cols-4 gap-3">
         <div class="bg-gradient-to-br from-blue-600 to-blue-500 text-white p-3 rounded text-center">
           <p class="text-[10px] opacity-90">Total Distance</p>
-          <p class="text-[20px] font-bold">18.5 km</p>
+          <p class="text-[20px] font-bold">{{ stats.totalDistance }}</p>
         </div>
         <div class="bg-gradient-to-br from-green-600 to-green-500 text-white p-3 rounded text-center">
           <p class="text-[10px] opacity-90">Est. Duration</p>
-          <p class="text-[20px] font-bold">5.5 hrs</p>
+          <p class="text-[20px] font-bold">{{ stats.estDuration }}</p>
         </div>
         <div class="bg-gradient-to-br from-purple-600 to-purple-500 text-white p-3 rounded text-center">
           <p class="text-[10px] opacity-90">Fuel Estimate</p>
-          <p class="text-[20px] font-bold">8 L</p>
+          <p class="text-[20px] font-bold">{{ stats.fuelEstimate }}</p>
         </div>
         <div class="bg-gradient-to-br from-orange-600 to-orange-500 text-white p-3 rounded text-center">
           <p class="text-[10px] opacity-90">Total Stops</p>
-          <p class="text-[20px] font-bold">3</p>
+          <p class="text-[20px] font-bold">{{ stats.totalStops }}</p>
         </div>
       </div>
 
@@ -219,20 +219,20 @@
           <div class="grid grid-cols-3 gap-4 text-[11px]">
             <div>
               <p class="text-gray-600 mb-1">Total Boxes/Items</p>
-              <p class="text-[16px] font-bold text-gray-900">28 boxes</p>
+              <p class="text-[16px] font-bold text-gray-900">{{ cargo.boxes }}</p>
             </div>
             <div>
               <p class="text-gray-600 mb-1">Estimated Weight</p>
-              <p class="text-[16px] font-bold text-gray-900">850 kg</p>
+              <p class="text-[16px] font-bold text-gray-900">{{ cargo.weight }}</p>
             </div>
             <div>
               <p class="text-gray-600 mb-1">Special Items</p>
-              <p class="text-[16px] font-bold text-gray-900">2 fragile</p>
+              <p class="text-[16px] font-bold text-gray-900">{{ cargo.specialItems }}</p>
             </div>
           </div>
           <div class="mt-3 pt-3 border-t border-gray-300">
             <p class="text-[10px] font-semibold text-gray-700 mb-1">Notes:</p>
-            <p class="text-[10px] text-gray-600">• Handle with care: Glass items, electronics • Antique furniture pieces • Priority delivery</p>
+            <p class="text-[10px] text-gray-600">{{ cargo.notes }}</p>
           </div>
         </div>
       </div>
@@ -270,4 +270,66 @@
 
 <script setup>
 import DocumentLayout from './DocumentLayout.vue';
+
+const props = defineProps({
+  trip: {
+    type: Object,
+    default: () => ({ id: 'TRP-CC-12345', date: 'December 20, 2024' })
+  },
+  order: {
+    type: Object,
+    default: () => ({ id: 'CC-12345' })
+  },
+  driver: {
+    type: Object,
+    default: () => ({ name: 'Prakash Reddy', employeeId: 'DRV-8765', licenseNo: 'KA07-20210012345', phone: '+91 98765 55555' })
+  },
+  vehicle: {
+    type: Object,
+    default: () => ({ number: 'KA 01 MN 5678', type: '14 ft Covered Truck', capacity: '3.5 Tons', fuelStart: '85% (68 Liters)' })
+  },
+  route: {
+    type: Object,
+    default: () => ({
+      from: 'Whitefield',
+      to: 'Indiranagar',
+      distance: '18.5 km',
+      estTime: '45 minutes',
+      via: 'Outer Ring Road → MG Road → Indiranagar Main Road'
+    })
+  },
+  pickup: {
+    type: Object,
+    default: () => ({
+      address: '123 Oak Street, Whitefield, Bangalore - 560066',
+      scheduledTime: '09:00 AM',
+      contact: 'Sarah Khan',
+      phone: '+91 98765 43210',
+      loadingTime: '90 minutes'
+    })
+  },
+  delivery: {
+    type: Object,
+    default: () => ({
+      address: '456 Maple Avenue, Indiranagar, Bangalore - 560038',
+      scheduledTime: '12:00 PM',
+      contact: 'Sarah Khan',
+      phone: '+91 98765 43210',
+      unloadingTime: '75 minutes'
+    })
+  },
+  stats: {
+    type: Object,
+    default: () => ({ totalDistance: '18.5 km', estDuration: '5.5 hrs', fuelEstimate: '8 L', totalStops: 3 })
+  },
+  cargo: {
+    type: Object,
+    default: () => ({
+      boxes: '28 boxes',
+      weight: '850 kg',
+      specialItems: '2 fragile',
+      notes: '• Handle with care: Glass items, electronics • Antique furniture pieces • Priority delivery'
+    })
+  }
+})
 </script>

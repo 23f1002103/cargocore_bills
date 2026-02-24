@@ -12,28 +12,28 @@
         <div class="grid grid-cols-2 gap-4 mb-3">
           <div>
             <p class="text-[10px] opacity-80 uppercase">Order ID</p>
-            <p class="text-[15px] font-bold">CC-12345</p>
+            <p class="text-[15px] font-bold">{{ order.id }}</p>
           </div>
           <div>
             <p class="text-[10px] opacity-80 uppercase">Checkout Date</p>
-            <p class="text-[13px] font-semibold">December 20, 2024 - 08:30 AM</p>
+            <p class="text-[13px] font-semibold">{{ order.checkoutDateTime }}</p>
           </div>
         </div>
         <div class="pt-3 border-t border-white/20">
           <p class="text-[10px] opacity-80 uppercase mb-1">Assigned Driver</p>
-          <p class="text-[15px] font-bold">Prakash Reddy</p>
+          <p class="text-[15px] font-bold">{{ driver.name }}</p>
           <div class="grid grid-cols-3 gap-3 mt-2 text-[11px]">
             <div>
               <p class="text-[9px] opacity-80">Employee ID</p>
-              <p class="font-semibold">DRV-8765</p>
+              <p class="font-semibold">{{ driver.employeeId }}</p>
             </div>
             <div>
               <p class="text-[9px] opacity-80">License No.</p>
-              <p class="font-semibold">KA07-20210012345</p>
+              <p class="font-semibold">{{ driver.licenseNo }}</p>
             </div>
             <div>
               <p class="text-[9px] opacity-80">Contact</p>
-              <p class="font-semibold">+91 98765 55555</p>
+              <p class="font-semibold">{{ driver.phone }}</p>
             </div>
           </div>
         </div>
@@ -45,15 +45,15 @@
         <div class="grid grid-cols-3 gap-3 text-[11px]">
           <div>
             <p class="text-[10px] text-gray-600">Vehicle Number</p>
-            <p class="font-semibold text-gray-900">KA 01 MN 5678</p>
+            <p class="font-semibold text-gray-900">{{ vehicle.number }}</p>
           </div>
           <div>
             <p class="text-[10px] text-gray-600">Vehicle Type</p>
-            <p class="font-semibold text-gray-900">14 ft Covered Truck</p>
+            <p class="font-semibold text-gray-900">{{ vehicle.type }}</p>
           </div>
           <div>
             <p class="text-[10px] text-gray-600">Odometer Reading</p>
-            <p class="font-semibold text-gray-900">45,234 km</p>
+            <p class="font-semibold text-gray-900">{{ vehicle.odometer }}</p>
           </div>
         </div>
       </div>
@@ -72,74 +72,11 @@
             </tr>
           </thead>
           <tbody class="text-gray-800">
-            <tr>
-              <td class="p-2 border border-gray-300 font-semibold">Hand Trolley / Moving Dolly</td>
-              <td class="text-center p-2 border border-gray-300">HT-245</td>
-              <td class="text-center p-2 border border-gray-300">2</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">Good</td>
-              <td class="text-center p-2 border border-gray-300"><input type="checkbox"></td>
-            </tr>
-            <tr class="bg-gray-50">
-              <td class="p-2 border border-gray-300">Furniture Blankets (Quilted)</td>
-              <td class="text-center p-2 border border-gray-300">FB-112</td>
-              <td class="text-center p-2 border border-gray-300">6</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">Good</td>
-              <td class="text-center p-2 border border-gray-300"><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td class="p-2 border border-gray-300">Ratchet Tie-Down Straps</td>
-              <td class="text-center p-2 border border-gray-300">TS-678</td>
-              <td class="text-center p-2 border border-gray-300">6</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">Good</td>
-              <td class="text-center p-2 border border-gray-300"><input type="checkbox"></td>
-            </tr>
-            <tr class="bg-gray-50">
-              <td class="p-2 border border-gray-300">Tool Kit (Screwdrivers, Wrenches)</td>
-              <td class="text-center p-2 border border-gray-300">TK-034</td>
-              <td class="text-center p-2 border border-gray-300">1</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">Good</td>
-              <td class="text-center p-2 border border-gray-300"><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td class="p-2 border border-gray-300">Fire Extinguisher (ABC Type)</td>
-              <td class="text-center p-2 border border-gray-300">FE-089</td>
-              <td class="text-center p-2 border border-gray-300">1</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">Good</td>
-              <td class="text-center p-2 border border-gray-300"><input type="checkbox"></td>
-            </tr>
-            <tr class="bg-gray-50">
-              <td class="p-2 border border-gray-300">First Aid Kit (Certified)</td>
-              <td class="text-center p-2 border border-gray-300">FA-156</td>
-              <td class="text-center p-2 border border-gray-300">1</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">Good</td>
-              <td class="text-center p-2 border border-gray-300"><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td class="p-2 border border-gray-300">GPS Tracking Device</td>
-              <td class="text-center p-2 border border-gray-300">GPS-412</td>
-              <td class="text-center p-2 border border-gray-300">1</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">Active</td>
-              <td class="text-center p-2 border border-gray-300"><input type="checkbox"></td>
-            </tr>
-            <tr class="bg-gray-50">
-              <td class="p-2 border border-gray-300">Digital Weighing Scale</td>
-              <td class="text-center p-2 border border-gray-300">WS-234</td>
-              <td class="text-center p-2 border border-gray-300">1</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">Good</td>
-              <td class="text-center p-2 border border-gray-300"><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td class="p-2 border border-gray-300">Reflective Safety Vests</td>
-              <td class="text-center p-2 border border-gray-300">SV-445</td>
-              <td class="text-center p-2 border border-gray-300">4</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">Good</td>
-              <td class="text-center p-2 border border-gray-300"><input type="checkbox"></td>
-            </tr>
-            <tr class="bg-gray-50">
-              <td class="p-2 border border-gray-300">Warning Triangles</td>
-              <td class="text-center p-2 border border-gray-300">WT-789</td>
-              <td class="text-center p-2 border border-gray-300">2</td>
-              <td class="text-center p-2 border border-gray-300 text-green-600">Good</td>
+            <tr v-for="(item, index) in equipment" :key="index" :class="index % 2 !== 0 ? 'bg-gray-50' : ''">
+              <td class="p-2 border border-gray-300 font-semibold">{{ item.description }}</td>
+              <td class="text-center p-2 border border-gray-300">{{ item.assetId }}</td>
+              <td class="text-center p-2 border border-gray-300">{{ item.qty }}</td>
+              <td class="text-center p-2 border border-gray-300 text-green-600">{{ item.condition }}</td>
               <td class="text-center p-2 border border-gray-300"><input type="checkbox"></td>
             </tr>
           </tbody>
@@ -259,4 +196,39 @@
 
 <script setup>
 import DocumentLayout from './DocumentLayout.vue';
+
+const props = defineProps({
+  order: {
+    type: Object,
+    default: () => ({ id: 'CC-12345', checkoutDateTime: 'December 20, 2024 - 08:30 AM' })
+  },
+  driver: {
+    type: Object,
+    default: () => ({
+      name: 'Prakash Reddy',
+      employeeId: 'DRV-8765',
+      licenseNo: 'KA07-20210012345',
+      phone: '+91 98765 55555'
+    })
+  },
+  vehicle: {
+    type: Object,
+    default: () => ({ number: 'KA 01 MN 5678', type: '14 ft Covered Truck', odometer: '45,234 km' })
+  },
+  equipment: {
+    type: Array,
+    default: () => [
+      { description: 'Hand Trolley / Moving Dolly', assetId: 'HT-245', qty: 2, condition: 'Good' },
+      { description: 'Furniture Blankets (Quilted)', assetId: 'FB-112', qty: 6, condition: 'Good' },
+      { description: 'Ratchet Tie-Down Straps', assetId: 'TS-678', qty: 6, condition: 'Good' },
+      { description: 'Tool Kit (Screwdrivers, Wrenches)', assetId: 'TK-034', qty: 1, condition: 'Good' },
+      { description: 'Fire Extinguisher (ABC Type)', assetId: 'FE-089', qty: 1, condition: 'Good' },
+      { description: 'First Aid Kit (Certified)', assetId: 'FA-156', qty: 1, condition: 'Good' },
+      { description: 'GPS Tracking Device', assetId: 'GPS-412', qty: 1, condition: 'Active' },
+      { description: 'Digital Weighing Scale', assetId: 'WS-234', qty: 1, condition: 'Good' },
+      { description: 'Reflective Safety Vests', assetId: 'SV-445', qty: 4, condition: 'Good' },
+      { description: 'Warning Triangles', assetId: 'WT-789', qty: 2, condition: 'Good' }
+    ]
+  }
+})
 </script>
